@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePlayerStore } from './Player.store'
+import { usePlayerStore } from '../../store/player'
 import ActionCard from '../ActionCard.vue'
 
 const player = usePlayerStore()
@@ -27,3 +27,7 @@ const player = usePlayerStore()
 }
 
 </style>
+
+
+
+

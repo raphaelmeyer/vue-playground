@@ -15,7 +15,7 @@ function position(hex: Hex) {
     const r = 100;
 
     const posx = x + r * hex.x + (r / 2) * hex.y;
-    const posy = y + (3 * r / 4) * hex.y;
+    const posy = y + (r * 0.87) * hex.y;
 
     return {x: posx, y: posy};
 }
@@ -40,9 +40,9 @@ const getTileStyle = computed(() => {
 <style scoped>
     .tile {
         background-color: orange;
-        padding: 5px;
-        margin: 5px;
-        width: 80px; height: 80px;
+        padding: 5px 4px;
+        margin: 0;
+        width: 87px; height: 100px;
         clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
         text-align: center;
     }
@@ -54,13 +54,13 @@ const getTileStyle = computed(() => {
       background-color: darkgreen;
     }
     .grass {
-      background-color: green;
+      background-color: yellowgreen;
     }
     .hill { 
       background-color: gray;
     }
     .swamp {
-      background-color: brown;
+      background-color: saddlebrown;
     }
 
     .tile:hover {

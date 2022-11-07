@@ -1,43 +1,40 @@
 <script setup lang="ts">
 
-import type { Hex } from '@/models/game.model';
-import { usePlayerStore } from '../player/Player.store';
+import type { Hex, Type } from '@/models/game.model';
+import { computed } from 'vue';
+import { usePlayerStore } from '../../store/player';
 import Tile from './Tile.vue'
 
-const grid: Hex[] = [
-  { x: -2, y: 2, type: 'hill' },
-  { x: -1, y: 2, type: 'hill' },
-  { x: 0, y: 2, type: 'hill' },
+function createGrid(n: number) {
+  const grid: Hex[] = [];
+  for (let x = -n; x <= n; x++) {
+    for (let y = -n; y <= n; y++) {
+      const t = 'grass';
+      grid.push({ x: x, y: y, type: t });
+    }
+  }
+  return grid;
+}
 
-  { x: -2, y: 1, type: 'dirt' },
-  { x: -1, y: 1, type: 'dirt' },
-  { x: 0, y: 1, type: 'dirt' },
-  { x: 1, y: 1, type: 'dirt' },
-
-  { x: -2, y: 0, type: 'grass' },
-  { x: -1, y: 0, type: 'grass' },
-  { x: 0, y: 0, type: 'forest' },
-  { x: 1, y: 0, type: 'grass' },
-  { x: 2, y: 0, type: 'grass' },
-
-  { x: -1, y: -1, type: 'swamp' },
-  { x: 0, y: -1, type: 'swamp' },
-  { x: 1, y: -1, type: 'swamp' },
-  { x: 2, y: -1, type: 'swamp' },
-
-  { x: 0, y: -2, type: 'forest' },
-  { x: 1, y: -2, type: 'forest' },
-  { x: 2, y: -2, type: 'forest' },
-];
+const grid = createGrid(10);
 
 const player = usePlayerStore()
+
+const getFieldOfView = computed(() => {
+  return grid.filter((tile) => {
+    const x = tile.x - player.position.x;
+    const y = tile.y - player.position.y;
+    const d = (Math.abs(x) + Math.abs(x + y) + Math.abs(y)) / 2;
+    return d <= 2;
+  });
+});
 
 </script>
 
 <template>
   <div class="board">
     <span
-      v-for="(hex, index) in grid"
+      v-for="(hex, index) in getFieldOfView"
       :key="index"
     >
       <Tile :hex="hex" />
