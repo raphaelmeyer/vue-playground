@@ -1,10 +1,10 @@
-import type { Ability } from '@/models/ability.model'
+import type { Ability } from "@/models/ability.model";
 
-export type CardId = number
+export type CardId = number;
 
 export interface Card {
-  id: CardId
-  name: string
-  topAction: Ability[]
-  bottomAction: Ability[]
+  id: CardId;
+  name: string;
+  topAction: Ability[];
+  bottomAction: Ability[];
 }

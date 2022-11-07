@@ -1,15 +1,14 @@
 <script setup lang="ts">
-
-import type { Hex, Type } from '@/models/game.model';
-import { computed } from 'vue';
-import { usePlayerStore } from '../../store/player';
-import Tile from './Tile.vue'
+import type { Hex } from "@/models/game.model";
+import { computed } from "vue";
+import { usePlayerStore } from "../../store/player";
+import Tile from "./HexTile.vue";
 
 function createGrid(n: number) {
   const grid: Hex[] = [];
   for (let x = -n; x <= n; x++) {
     for (let y = -n; y <= n; y++) {
-      const t = 'grass';
+      const t = "grass";
       grid.push({ x: x, y: y, type: t });
     }
   }
@@ -18,7 +17,7 @@ function createGrid(n: number) {
 
 const grid = createGrid(10);
 
-const player = usePlayerStore()
+const player = usePlayerStore();
 
 const getFieldOfView = computed(() => {
   return grid.filter((tile) => {
@@ -28,15 +27,11 @@ const getFieldOfView = computed(() => {
     return d <= 2;
   });
 });
-
 </script>
 
 <template>
   <div class="board">
-    <span
-      v-for="(hex, index) in getFieldOfView"
-      :key="index"
-    >
+    <span v-for="(hex, index) in getFieldOfView" :key="index">
       <Tile :hex="hex" />
     </span>
   </div>
