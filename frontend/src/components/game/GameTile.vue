@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import type { Hex } from "@/models/game.model";
 import { computed } from "vue";
+import type { Position, Tile } from "@/models/game.model";
 
 interface TileProps {
-  hex: Hex;
+  tile: Tile;
 }
 
 const props = defineProps<TileProps>();
 
-function position(hex: Hex) {
+function position(p: Position) {
   const x = 220;
   const y = 200;
   const r = 100;
 
-  const posx = x + r * hex.x + (r / 2) * hex.y;
-  const posy = y + r * 0.87 * hex.y;
+  const posx = x + r * p.x + (r / 2) * p.y;
+  const posy = y + r * 0.87 * p.y;
 
   return { x: posx, y: posy };
 }
 
 const getTileStyle = computed(() => {
-  const p = position(props.hex);
+  const p = position(props.tile.position);
   return `position: absolute; top: ${p.y}px; left: ${p.x}px;`;
 });
 </script>
 
 <template>
-  <div :style="getTileStyle" class="tile" :class="props.hex.type">
-    {{ props.hex.type }}
+  <div :style="getTileStyle" class="gametile" :class="props.tile.landscape">
+    {{ props.tile.landscape }}
   </div>
 </template>
 
 <style scoped>
-.tile {
+.gametile {
   background-color: orange;
   padding: 5px 4px;
   margin: 0;
@@ -42,23 +42,23 @@ const getTileStyle = computed(() => {
   text-align: center;
 }
 
-.dirt {
+.desert {
   background-color: sandybrown;
 }
 .forest {
   background-color: darkgreen;
 }
-.grass {
-  background-color: yellowgreen;
+.hills {
+  background-color: darkcyan;
 }
-.hill {
-  background-color: gray;
+.mountains {
+  background-color: grey;
 }
-.swamp {
-  background-color: saddlebrown;
+.sea {
+  background-color: blue;
 }
 
-.tile:hover {
+.gametile:hover {
   background-color: hotpink;
 }
 </style>

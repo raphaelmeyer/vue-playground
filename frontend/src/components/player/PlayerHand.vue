@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePlayerStore } from "../../store/player";
+import { usePlayerStore } from "@/store/player.store";
 import ActionCard from "../ActionCard.vue";
 
 const player = usePlayerStore();

@@ -1,10 +1,13 @@
-export type Type = "forest" | "grass" | "dirt" | "swamp" | "hill";
-
-export interface Hex {
-  x: number;
-  y: number;
-  type: Type;
+export interface World {
+  tiles: Tile[];
 }
+
+export interface Tile {
+  position: Position;
+  landscape: Landscape;
+}
+
+export type Landscape = "desert" | "forest" | "hills" | "mountains" | "sea";
 
 export interface Position {
   x: number;
