@@ -11,7 +11,7 @@ const props = defineProps<TileProps>();
 function position(p: Position) {
   const x = 220;
   const y = 200;
-  const r = 100;
+  const r = 90;
 
   const posx = x + r * p.x + (r / 2) * p.y;
   const posy = y + r * 0.87 * p.y;
@@ -33,7 +33,7 @@ const getTileStyle = computed(() => {
 
 <style scoped>
 .gametile {
-  background-color: orange;
+  box-sizing: border-box;
   padding: 5px 4px;
   margin: 0;
   width: 87px;
@@ -43,22 +43,23 @@ const getTileStyle = computed(() => {
 }
 
 .desert {
-  background-color: sandybrown;
+  background-image: radial-gradient(yellow, sandybrown);
 }
 .forest {
-  background-color: darkgreen;
+  background-image: radial-gradient(darkgreen, green);
 }
 .hills {
-  background-color: darkcyan;
+  background-image: radial-gradient(darkcyan, grey);
 }
 .mountains {
-  background-color: grey;
+  background-image: radial-gradient(gainsboro, grey);
 }
 .sea {
-  background-color: blue;
+  background-image: radial-gradient(darkblue, blue);
 }
 
 .gametile:hover {
+  background-image: none;
   background-color: hotpink;
 }
 </style>
