@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { Position, Tile } from "@/models/game.model";
+import PlayerIcon from "@/components/game/PlayerIcon.vue";
 
 interface TileProps {
   tile: Tile;
+  hasPlayer: boolean;
 }
 
 const props = defineProps<TileProps>();
@@ -28,6 +30,7 @@ const getTileStyle = computed(() => {
 <template>
   <div :style="getTileStyle" class="gametile" :class="props.tile.landscape">
     {{ props.tile.landscape }}
+    <PlayerIcon v-if="props.hasPlayer" />
   </div>
 </template>
 
@@ -43,23 +46,23 @@ const getTileStyle = computed(() => {
 }
 
 .desert {
-  background-image: radial-gradient(yellow, sandybrown);
+  background: linear-gradient(45deg, yellow, sandybrown, brown);
 }
 .forest {
-  background-image: radial-gradient(darkgreen, green);
+  background: linear-gradient(240deg, darkgreen, forestgreen, lawngreen);
 }
 .hills {
-  background-image: radial-gradient(darkcyan, grey);
+  background: radial-gradient(darkolivegreen, darkslategrey);
 }
 .mountains {
-  background-image: radial-gradient(gainsboro, grey);
+  background: radial-gradient(white, grey, darkslategray);
 }
 .sea {
-  background-image: radial-gradient(darkblue, blue);
+  background: linear-gradient(lightblue, royalblue, darkblue);
 }
 
 .gametile:hover {
-  background-image: none;
+  background: none;
   background-color: hotpink;
 }
 </style>

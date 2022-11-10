@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { usePlayerStore } from "@/store/player.store";
 import { useGameStore } from "@/store/game.store";
 import GameTile from "@/components/game/GameTile.vue";
+import type { Position } from "@/models/game.model";
 
 const game = useGameStore();
 const player = usePlayerStore();
@@ -15,12 +16,16 @@ const getFieldOfView = computed(() => {
     return d <= 2;
   });
 });
+
+function isPlayerLocation(tile: Position): boolean {
+  return tile.x === player.position.x && tile.y === player.position.y;
+}
 </script>
 
 <template>
   <div class="board">
     <span v-for="(tile, index) in getFieldOfView" :key="index">
-      <GameTile :tile="tile" />
+      <GameTile :tile="tile" :has-player="isPlayerLocation(tile.position)" />
     </span>
   </div>
 </template>
