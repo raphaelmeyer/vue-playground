@@ -20,4 +20,11 @@ export const usePlayerStore = defineStore({
       position: { x: 0, y: 0 },
     };
   },
+
+  actions: {
+    move(to: Position) {
+      this.position.x = to.x;
+      this.position.y = to.y;
+    },
+  },
 });

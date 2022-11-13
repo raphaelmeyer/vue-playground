@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import type { Position, Tile } from "@/models/game.model";
 import PlayerIcon from "@/components/game/PlayerIcon.vue";
+import { usePlayerStore } from "@/store/player.store";
 
 interface TileProps {
   tile: Tile;
@@ -10,15 +11,22 @@ interface TileProps {
 
 const props = defineProps<TileProps>();
 
+const player = usePlayerStore();
+
 function position(p: Position) {
   const x = 220;
   const y = 200;
   const r = 90;
 
-  const posx = x + r * p.x + (r / 2) * p.y;
-  const posy = y + r * 0.87 * p.y;
+  const posx =
+    x + r * (p.x - player.position.x) + (r / 2) * (p.y - player.position.y);
+  const posy = y + r * 0.87 * (p.y - player.position.y);
 
   return { x: posx, y: posy };
+}
+
+function movePlayer() {
+  player.move(props.tile.position);
 }
 
 const getTileStyle = computed(() => {
@@ -28,8 +36,12 @@ const getTileStyle = computed(() => {
 </script>
 
 <template>
-  <div :style="getTileStyle" class="gametile" :class="props.tile.landscape">
-    {{ props.tile.landscape }}
+  <div
+    :style="getTileStyle"
+    class="gametile"
+    :class="props.tile.landscape"
+    @click="movePlayer"
+  >
     <PlayerIcon v-if="props.hasPlayer" />
   </div>
 </template>
